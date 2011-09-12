@@ -47,7 +47,7 @@ public class TCPServer {
 		else{
 			System.out.println("Wrong input.");
 		}
-		
+	
 		os = socket.getOutputStream();
 		System.out.println("Server: OutputStream created.");
 		
