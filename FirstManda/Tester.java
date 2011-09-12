@@ -76,7 +76,7 @@ public class Tester {
 			System.out.println("Choose task:");
 			System.out.println("0: convert text to lower case");
 			System.out.println("1: convert text to upper case");
-			int task = br.read();
+			int task = Integer.parseInt(br.readLine());
 			System.out.println("Enter message to server: ");
 			String message = br.readLine();
 			
