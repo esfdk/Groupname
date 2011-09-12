@@ -1,5 +1,3 @@
-package FirstManda;
-
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
@@ -19,10 +17,11 @@ public class TCPServer {
 	
 	public void startServer(int serverPort) throws IOException{
 		serverSocket = new ServerSocket(serverPort);
-		System.out.println("Server: ServerSocket created with " + serverPort);
+		System.out.println("Server: ServerSocket created on port " + serverPort);
 		
+		System.out.println("Server: Waiting for client...");
 		socket = serverSocket.accept();
-		System.out.println("Server: Socket created.");
+		System.out.println("Server: Established connection to client " + serverSocket.getInetAddress());
 		
 		is = socket.getInputStream();
 		System.out.println("Server: InputStream created.");
@@ -31,21 +30,22 @@ public class TCPServer {
 		System.out.println("Server: DataInputStream created.");
 		
 		String message = dis.readUTF();
+		System.out.println("Server: Received message from client: ");
 		System.out.println(message);
 		
 		os = socket.getOutputStream();
 		System.out.println("Server: OutputStream created.");
 		
 		dos = new DataOutputStream(os);
-		System.out.println("Server: OutputStream created.");
+		System.out.println("Server: DataOutputStream created.");
 	
 		dos.writeUTF(message.toUpperCase());
-		System.out.println("Server: Wrote message in upper-case.");
+		System.out.println("Server: Converted message to upper-case.");
 		
 		dos.flush();
-		System.out.println("Server: Flushed dos.");
+		System.out.println("Server: Flushed DataOutputStream.");
 		
 		socket.close();
-		System.out.println("Server: Socket close.");
+		System.out.println("Server: Closed socket");
 	}
 }

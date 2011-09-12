@@ -1,5 +1,3 @@
-package FirstManda;
-
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
@@ -15,8 +13,9 @@ public class TCPClient {
 	private InputStream is;
 	private DataInputStream dis;
 	
-	public void initialize(int serverPort, String serverAddress) throws IOException{
-		System.out.println("Client: Trying to create socket with port: " + serverPort + " and InetAddress: " + serverAddress);
+	public void initialize(String serverAddress, int serverPort) throws IOException{
+		System.out.println("Client: Trying to create socket with port: " + serverPort +
+				" and InetAddress: " + serverAddress);
 		
 		socket = new Socket(serverAddress, serverPort);
 		System.out.println("Client: Socket created.");
@@ -38,8 +37,9 @@ public class TCPClient {
 		dos.writeUTF(message);
 		
 		dos.flush();
-		System.out.println("Client: Flushed dos.");
+		System.out.println("Client: Flushed DataOutputStream.");
 		
+		System.out.println("Client: Message received from server: ");
 		System.out.println(dis.readUTF());
 		
 		socket.close();
