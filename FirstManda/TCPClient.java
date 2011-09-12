@@ -37,7 +37,10 @@ public class TCPClient {
 	
 	public void sendMessage(int i, String message) throws IOException{
 		dos.writeUTF(message);
-
+		
+		dos.flush();
+		System.out.println("Client: Flushed DataOutputStream.");
+		
 		dos.writeInt(i);
 		
 		System.out.println("Client: Message received from server: ");

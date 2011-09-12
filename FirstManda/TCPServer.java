@@ -36,6 +36,9 @@ public class TCPServer {
 		System.out.println(message);
 		
 		socket = serverSocket.accept();
+		
+		System.out.println("Server: Received integer from client.");
+		
 		if(dis.readInt() == 0){
 			message = message.toLowerCase();
 			System.out.println("Server: Converted message to upper-case.");
