@@ -77,7 +77,7 @@ public class Tester {
 			System.out.println("0: convert text to lower case");
 			System.out.println("1: convert text to upper case");
 			int task = br.read();
-			System.out.println("Enter message to server: ");
+			System.out.println("Enter message to server:");
 			String message = br.readLine();
 			
 			TCPc.sendMessage(task, message);
