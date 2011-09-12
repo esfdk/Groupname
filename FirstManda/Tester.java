@@ -1,3 +1,5 @@
+package FirstManda;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -71,10 +73,14 @@ public class Tester {
 			TCPc.initialize(ip, port);
 			System.out.println("Client started!");
 			
+			System.out.println("Choose task:");
+			System.out.println("0: convert text to lower case");
+			System.out.println("1: convert text to upper case");
+			int task = br.read();
 			System.out.println("Enter message to server: ");
 			String message = br.readLine();
 			
-			TCPc.sendMessage(message);
+			TCPc.sendMessage(task, message);
 		}
 		catch (UnknownHostException e) {
 			System.out.println("Client could not be started.");

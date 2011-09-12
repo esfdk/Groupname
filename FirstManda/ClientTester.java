@@ -10,7 +10,7 @@ public class ClientTester {
 		TCPClient TCPc = new TCPClient();
 		try {
 			System.out.println("Starting client.");
-			TCPc.initialize(4567, "10.25.239.239");
+			TCPc.initialize("10.25.239.239", 4567);
 			System.out.println("Client started.");
 			TCPc.sendMessage("Hey it works? I think? Maybe? PLEASE?!?!");
 		} catch (UnknownHostException e) {

@@ -1,3 +1,5 @@
+package FirstManda;
+
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
@@ -32,6 +34,8 @@ public class TCPServer {
 		String message = dis.readUTF();
 		System.out.println("Server: Received message from client: ");
 		System.out.println(message);
+		
+		
 		
 		os = socket.getOutputStream();
 		System.out.println("Server: OutputStream created.");
