@@ -1,3 +1,5 @@
+package FirstManda;
+
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
@@ -33,14 +35,26 @@ public class TCPServer {
 		System.out.println("Server: Received message from client: ");
 		System.out.println(message);
 		
+		socket = serverSocket.accept();
+		if(dis.readInt() == 0){
+			message = message.toLowerCase();
+			System.out.println("Server: Converted message to upper-case.");
+		}
+		else if(dis.readInt() == 1){
+			message = message.toUpperCase();
+			System.out.println("Server: Converted message to upper-case.");
+		}
+		else{
+			System.out.println("Wrong input.");
+		}
+		
 		os = socket.getOutputStream();
 		System.out.println("Server: OutputStream created.");
 		
 		dos = new DataOutputStream(os);
 		System.out.println("Server: DataOutputStream created.");
 	
-		dos.writeUTF(message.toUpperCase());
-		System.out.println("Server: Converted message to upper-case.");
+		dos.writeUTF(message);
 		
 		dos.flush();
 		System.out.println("Server: Flushed DataOutputStream.");

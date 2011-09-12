@@ -1,3 +1,5 @@
+package FirstManda;
+
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
@@ -33,18 +35,18 @@ public class TCPClient {
 		System.out.println("Client: DataInputStream created.");
 	}
 	
-	public void sendMessage(String message) throws IOException{
+	public void sendMessage(int i, String message) throws IOException{
 		dos.writeUTF(message);
-		
-		dos.flush();
-		System.out.println("Client: Flushed DataOutputStream.");
+
+		dos.writeInt(i);
 		
 		System.out.println("Client: Message received from server: ");
 		System.out.println(dis.readUTF());
 		
+		dos.flush();
+		System.out.println("Client: Flushed DataOutputStream.");
+		
 		socket.close();
 		System.out.println("Client: Closed socket.");
-		
-		
 	}
 }

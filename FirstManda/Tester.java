@@ -1,3 +1,5 @@
+package FirstManda;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -7,7 +9,7 @@ public class Tester {
 	InputStreamReader isr = new InputStreamReader(System.in);
 	BufferedReader br = new BufferedReader(isr);
 	String role = "null";
-
+	
 	public static void main(String[] args) {
 		new Tester();
 	}
