@@ -55,7 +55,7 @@ class ServerThread extends Thread {
 
 			if(i == 0){
 				message = message.toLowerCase();
-				System.out.println("Server: Converted message to upper-case.");
+				System.out.println("Server: Converted message to lower-case.");
 			}
 			else if(i == 1){
 				message = message.toUpperCase();
@@ -70,7 +70,9 @@ class ServerThread extends Thread {
 
 			dos = new DataOutputStream(os);
 			System.out.println("Server: DataOutputStream created.");
-
+			
+			System.out.println("Replying to client with new message: ");
+			System.out.println(message);
 			dos.writeUTF(message);
 
 			dos.flush();
