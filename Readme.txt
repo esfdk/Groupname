@@ -24,3 +24,15 @@ CLIENT:
 	case) and the message to be converted. The message and task is sent to the server.
 	Lastly, the converted message is read from the input stream, and the socket is
 	closed.
+
+Server:
+The current running thread between the server and client will crash if the client does not behave as expected (from the servers perspective)
+The server will crash if it can not connect to the socket it requests.
+
+Client:
+
+The client crashes if it does not have an internet connection or it can not connect to the server.
+If the client tries to send a message before a connection has been established it will crash.
+If the client's readUTF method doesn't recieve anything from the server it will print an empty string
+
+
