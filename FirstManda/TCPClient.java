@@ -15,6 +15,13 @@ public class TCPClient {
 	private InputStream is;
 	private DataInputStream dis;
 	
+	/**
+	 * Starts the client.
+	 * 
+	 * @param serverAddress IP-address of server.
+	 * @param serverPort Port number on server.
+	 * @throws IOException
+	 */
 	public void initialize(String serverAddress, int serverPort) throws IOException{
 		System.out.println("Client: Trying to create socket with port: " + serverPort +
 				" and InetAddress: " + serverAddress);
@@ -35,6 +42,14 @@ public class TCPClient {
 		System.out.println("Client: DataInputStream created.");
 	}
 	
+	/**
+	 * Sends the message to the server through the port/address used in initialize.
+	 * Will do nothing unless initialize is run.
+	 * 
+	 * @param i 0 for lower-case, 1 for upper-case.
+	 * @param message The message to be changed to lower-case or upper-case.
+	 * @throws IOException
+	 */
 	public void sendMessage(int i, String message) throws IOException{
 		dos.writeUTF(message);
 		
