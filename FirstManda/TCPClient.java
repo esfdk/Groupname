@@ -43,11 +43,11 @@ public class TCPClient {
 		
 		dos.writeInt(i);
 		
-		System.out.println("Client: Message received from server: ");
-		System.out.println(dis.readUTF());
-		
 		dos.flush();
 		System.out.println("Client: Flushed DataOutputStream.");
+		
+		System.out.println("Client: Message received from server: ");
+		System.out.println(dis.readUTF());
 		
 		socket.close();
 		System.out.println("Client: Closed socket.");

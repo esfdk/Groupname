@@ -22,9 +22,10 @@ public class UDPReceiver{
 			System.out.println( message );
 			i++;
 			System.out.println(i);
-			if(message.equals("terminate server"))
+			if(message.equals("terminate"))
 				break;
 		}
+		System.out.println("SERVER: TOTAL NO OF PACKAGES RECEIVED:");
 		System.out.println(i);
   }
 }
