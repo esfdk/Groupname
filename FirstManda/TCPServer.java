@@ -9,6 +9,13 @@ import java.net.ServerSocket;
 import java.net.Socket;
 
 public class TCPServer {
+	
+	/**
+	 * Starts the server on a specific port. Server will run until runtime is stopped.
+	 * 
+	 * @param serverPort The port on the server.
+	 * @throws IOException
+	 */
 	public void startServer(int serverPort) throws IOException{
 		ServerSocket serverSocket = new ServerSocket(serverPort);
 		System.out.println("Server: ServerSocket created on port " + serverPort);
@@ -37,6 +44,9 @@ class ServerThread extends Thread {
 		socket = s;
 	}
 
+	/**
+	 * Takes care of receiving and changing messages to lower/upper case.
+	 */
 	public void run() {
 		try {
 			is = socket.getInputStream();
