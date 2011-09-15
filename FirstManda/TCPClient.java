@@ -63,7 +63,7 @@ public class TCPClient {
 		
 		dos.flush();
 		System.out.println("Client: Flushed DataOutputStream.");
-		
+
 		socket.close();
 		System.out.println("Client: Closed socket.");
 	}
