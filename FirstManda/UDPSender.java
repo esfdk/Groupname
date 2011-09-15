@@ -14,12 +14,15 @@ public class UDPSender {
 		System.out.println("CLIENT: Creating DatagramPacket");
 		DatagramPacket datagramPacket = new DatagramPacket(message, messageLength, receiversAddress, receiversPort);
 		System.out.println("CLIENT: Done.");
-		int i = 0;
-		while(i < 100) {
+		for(int i = 0; i < 1000; i++) {
 			System.out.println("CLIENT: Sending data...");
 			datagramSocket.send( datagramPacket );
 			System.out.println("CLIENT: Done.");
 			i++;
 		}
+		messageAsString = "terminate";
+		message = messageAsString.getBytes();
+		datagramPacket = new DatagramPacket(message, 9, receiversAddress, receiversPort);
+		datagramSocket.send(datagramPacket);
   }
 }

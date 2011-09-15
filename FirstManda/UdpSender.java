@@ -3,7 +3,7 @@ import java.net.*;
 
 public class UDPSender {
   public static void main(String args[ ]) throws Exception{ 
-		InetAddress receiversAddress = InetAddress.getByName("10.25.239.237");
+		InetAddress receiversAddress = InetAddress.getByName("localhost");
 		int receiversPort = 6789;
 		System.out.println("CLIENT: Creating DatagramSocket...");
 		DatagramSocket datagramSocket = new DatagramSocket();
@@ -14,13 +14,15 @@ public class UDPSender {
 		System.out.println("CLIENT: Creating DatagramPacket");
 		DatagramPacket datagramPacket = new DatagramPacket(message, messageLength, receiversAddress, receiversPort);
 		System.out.println("CLIENT: Done.");
-		int i = 0;
-		while(i < 10000) {
+		for(int i = 0; i < 1000; i++) {
 			System.out.println("CLIENT: Sending data...");
 			datagramSocket.send( datagramPacket );
 			System.out.println("CLIENT: Done.");
 			i++;
 		}
-		System.out.println("lol all done");
+		messageAsString = "terminate";
+		message = messageAsString.getBytes();
+		datagramPacket = new DatagramPacket(message, 9, receiversAddress, receiversPort);
+		datagramSocket.send(datagramPacket);
   }
 }
