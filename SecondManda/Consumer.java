@@ -1,3 +1,5 @@
+package SecondManda;
+
 import javax.jms.Session;
 import javax.jms.TextMessage;
 import javax.jms.Topic;
@@ -11,9 +13,6 @@ import javax.naming.InitialContext;
 
 public class Consumer {
 
-	/**
-	 * @param args
-	 */
 	public static void main(String[] args) {
 		Consumer c = new Consumer();	
 		while (true){	
