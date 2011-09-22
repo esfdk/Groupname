@@ -1,3 +1,5 @@
+package SecondManda;
+
 import javax.jms.Session;
 import javax.jms.TextMessage;
 import javax.jms.Topic;
