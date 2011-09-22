@@ -13,9 +13,6 @@ import javax.naming.InitialContext;
 
 public class Consumer {
 
-	/**
-	 * @param args
-	 */
 	public static void main(String[] args) {
 		Consumer c = new Consumer();	
 		while (true){	

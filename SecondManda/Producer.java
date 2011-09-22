@@ -27,8 +27,16 @@ public class Producer {
 		try
 		{
 			Context ctx = new InitialContext();
-			ctx.lookup();
+			TopicConnectionFactory tcf = (TopicConnectionFactory) ctx.lookup("TopicConnectionFactory");
+			Topic t = (Topic) ctx.lookup("Topic");
 			
+			Connection conn = tcf.createConnection();
+			Session s = conn.createSession(true, 0);
+			MessageProducer mp = s.createProducer(t);
+			TextMessage message = s.createTextMessage();
+			message.setText(m);
+			mp.send(message);
+			conn.close();
 			
 			// TODO: Lookup the TopicConnectionFactory
 			// TODO: Lookup the Topic
