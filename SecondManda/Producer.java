@@ -29,12 +29,12 @@ public class Producer {
 			Context ctx = new InitialContext();
 			TopicConnectionFactory tcf = (TopicConnectionFactory) ctx.lookup("TCF");
 			Topic t = (Topic) ctx.lookup("Messages");
-
 			TopicConnection conn = tcf.createTopicConnection();
 			TopicSession s = conn.createTopicSession(false, Session.AUTO_ACKNOWLEDGE);
 			TopicPublisher tp = s.createPublisher(t);
 			TextMessage message = s.createTextMessage();
 			message.setText(m);
+			message.setStringProperty("Sender", "Alice");
 			tp.publish(message);
 			conn.close();		
 		}

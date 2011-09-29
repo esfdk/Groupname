@@ -1,25 +1,15 @@
 package SecondManda;
 
-import java.util.Scanner;
-
 public class Main {
 	
 	public static void main(String[] args){
 		Producer p = new Producer();
-		Consumer c = new Consumer();
-		Scanner in = new Scanner(System.in);
-		
-		String msg;
-		do
-		{
-			System.out.println("Enter message:");
-			msg = in.nextLine();
-			System.out.println("Sending: " + msg);
-			if (msg != "") p.raise(msg);
-		} while (msg != "");	
+		System.out.println("p");
 		p.raise("herpderp");
-		while (true){	
-			System.out.println(c.receive());
-		}
+		System.out.println("raise");
+		Consumer c = new Consumer();
+		System.out.println("c");
+		c.receive();
+		System.out.println("receive");
 	}
 }
