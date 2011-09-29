@@ -28,7 +28,7 @@ public class Producer {
 		{
 			Context ctx = new InitialContext();
 			TopicConnectionFactory tcf = (TopicConnectionFactory) ctx.lookup("TopicConnectionFactory");
-			Topic t = (Topic) ctx.lookup("Topic");
+			Topic t = (Topic) ctx.lookup("Messages");
 			
 			Connection conn = tcf.createConnection();
 			Session s = conn.createSession(true, 0);
@@ -54,5 +54,4 @@ public class Producer {
 			e.printStackTrace();			
 		}		
 	}	
-
 }
