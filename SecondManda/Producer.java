@@ -5,7 +5,11 @@ import javax.naming.Context;
 import javax.naming.InitialContext; 
 import java.util.Scanner;
 
-
+/**
+ * The class used to publish messages on the connection.
+ * 
+ * @author Groupname
+ */
 public class Producer {
 
 	public static void main(String[] args) {
@@ -22,6 +26,11 @@ public class Producer {
 		} while (c != "");
 	}
 
+	/**
+	 * Connects to session and publishes a message.
+	 * 
+	 * @param m Message to be published.
+	 */
 	public void raise(String m)
 	{
 		try
