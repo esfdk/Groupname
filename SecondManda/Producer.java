@@ -30,8 +30,8 @@ public class Producer {
 			TopicConnectionFactory tcf = (TopicConnectionFactory) ctx.lookup("TopicConnectionFactory");
 			Topic t = (Topic) ctx.lookup("Messages");
 			
-			Connection conn = tcf.createConnection();
-			Session s = conn.createSession(true, 0);
+			TopicConnection conn = (TopicConnection) tcf.createConnection();
+			TopicSession s = (TopicSession) conn.createSession(true, 0);
 			MessageProducer mp = s.createProducer(t);
 			TextMessage message = s.createTextMessage();
 			message.setText(m);
