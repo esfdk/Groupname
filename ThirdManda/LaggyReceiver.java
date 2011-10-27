@@ -1,3 +1,5 @@
+package ThirdManda;
+
 import org.jgroups.JChannel;
 import org.jgroups.Message;
 import org.jgroups.ReceiverAdapter;

@@ -2,6 +2,8 @@ import org.jgroups.JChannel;
 import org.jgroups.Message;
 import org.jgroups.ReceiverAdapter;
 import org.jgroups.View;
+import org.jgroups.protocols.UDP;
+import org.jgroups.protocols.pbcast.NAKACK;
 import org.jgroups.util.Util;
 
 import java.io.*;
@@ -14,20 +16,36 @@ public class TimedChat extends ReceiverAdapter {
     String user_name=System.getProperty("user.name", "n/a");
     final List<String> state=new LinkedList<String>();
     DriftingClock clock = new DriftingClock();
+    // New class for helping us synchronize our clocks
+    ClockSynchonizer cs;
     
     public void receive(Message msg) {
-        String line=msg.getSrc() + ": " + msg.getObject();
-        System.out.println(line);
-        synchronized(state) {
-            state.add(line);
-        }
+    	MessageBody mb = (MessageBody)msg.getObject();
+    	if (mb.Header.equals("Chat Message"))
+		{
+            String line=msg.getSrc() + ": " + mb.Message;
+            System.out.println(line);		
+		}
+    	else
+    	{
+    	    // Messages with other headers are meant for the clock synchronizer
+    		cs.receive(msg);
+    	}		
     }
 
     private void start() throws Exception {
-        channel=new JChannel();
+        channel=new JChannel();        
+        
+        UDP udp = (UDP)channel.getProtocolStack().findProtocol(UDP.class);
+        udp.setLogDiscardMessages(false);
+        
         channel.setReceiver(this);
         channel.connect("ChatCluster");
         channel.getState(null, 10000);
+        
+        // start the clocksynchronizer
+        cs = new ClockSynchonizer(clock, channel);
+        cs.start();        
         eventLoop();
         channel.close();
     }
@@ -42,7 +60,12 @@ public class TimedChat extends ReceiverAdapter {
                     break;
                 }
                 line="[" + user_name + "] " + "[" +  DateFormat.getTimeInstance(DateFormat.MEDIUM).format(clock.getTime()) + "] " + line;
-                Message msg=new Message(null, null, line);
+                
+                MessageBody mb = new MessageBody();
+                mb.Header = "Chat Message";
+                mb.Message = line;
+                mb.Sender = channel.getAddressAsString(); 
+                Message msg=new Message(null, null, mb);
                 channel.send(msg);
             }
             catch(Exception e) {
