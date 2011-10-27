@@ -1,5 +1,8 @@
+<<<<<<< HEAD
+=======
 package ThirdManda;
 
+>>>>>>> 70cde107b71f1c8472d62c142c23a1fb01010b96
 import java.text.DateFormat;
 import java.util.Date;
 import java.util.Timer;
@@ -53,7 +56,11 @@ public class ClockSynchonizer extends ReceiverAdapter {
     }
     
     
+<<<<<<< HEAD
+    // 
+=======
     
+>>>>>>> 70cde107b71f1c8472d62c142c23a1fb01010b96
     public void receive(Message msg) {
     	MessageBody mb = (MessageBody)msg.getObject();
     	if ((mb.Header.equals("Master Request")) && (!mb.Sender.equals(channel.getAddressAsString())) && MasterMode)
