@@ -24,23 +24,29 @@ public class LaggyChat {
     // Method for comparing two vector timestamps
     int CompareTimestamps(HashMap<String, Integer> a, HashMap<String, Integer> b)
     {
-    	// TODO: implement this
+    	boolean bIsBigger = false;
+    	boolean foundStrictlySmaller = false;
     	
-    	if(e1 > e2) return -1;
-    	if(e1 < e2) return 1;
+    	for(String s : a.keySet()){
+    		if(b.get(s) < a.get(s)){
+    			bIsBigger = true;
+    		}
+    		else if(b.get(s) > a.get(s)){
+    			foundStrictlySmaller = true;
+    		}
+    	}
+    	
+    	if(!bIsBigger & foundStrictlySmaller) return -1;
+    	if(bIsBigger) return 1;
     	return 0;
     }    
     
     //Method for updating the local clock based on some vector timestamp
     public void UpdateClock(HashMap<String, Integer> t)
-    {
-    	//TODO: implement this - possibly done. Not sure it's entirely done. Two ways.
-    	
-    	VectorClock.putAll(t);
-    	
-    	//Might have to use this because we do not want to update if the value is lower?
+    {	
     	for(String s : t.keySet()){
-    		VectorClock.put(s, t.get(s));
+    		int maxValue = Math.max(t.get(s), VectorClock.get(s));
+    		VectorClock.put(s, maxValue);
     	}
     }
     
@@ -49,7 +55,7 @@ public class LaggyChat {
     // what is required of the vectortimestamp on the message and the local clock?
     public boolean MessageReady(MessageBody m)
     {    	
-    	// TODO: implement this
+    	// TODO: When is a message ready?
     	
     	return false;
     }
@@ -65,21 +71,14 @@ public class LaggyChat {
     	if(!MessageReady(m)){
     		waitingMessages.add(m);
     	}
-    
-    	// TODO: Can any other waiting messages be printed?
-    	
-    	// Hint: To be efficient, store waiting messages in their partial order, this way you only have to go through
-    	//       the list once when you're checking if any of them can be printed when a new message arrived. 
     	
     	for(MessageBody mb : waitingMessages){
     		if(MessageReady(mb)){
     			System.out.println(mb.Sender+ ":" + mb.Message);
     	    	UpdateClock(mb.VectorTimestamp);
+    	    	waitingMessages.remove(mb);
     		}
     	}
-    	
-    	System.out.println(m.Sender+ ":" + m.Message);
-    	UpdateClock(m.VectorTimestamp);
     }
     
 
@@ -107,7 +106,11 @@ public class LaggyChat {
                 mb.Message = line;
                 mb.Sender = channel.getAddressAsString();
                 
-                // TODO: Add the vector timestamp to the message and increase the local clock. 
+                String addr = mb.Sender;
+                int clock = VectorClock.get(addr) + 1;               
+                VectorClock.put(addr, clock);
+                
+                mb.VectorTimestamp = VectorClock; 
                 
                 Message msg=new Message(null, null, mb);
                 channel.send(msg);
