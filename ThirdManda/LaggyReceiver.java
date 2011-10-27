@@ -1,3 +1,5 @@
+package ThirdManda;
+
 import org.jgroups.JChannel;
 import org.jgroups.Message;
 import org.jgroups.ReceiverAdapter;
@@ -14,12 +16,12 @@ public class LaggyReceiver extends ReceiverAdapter {
 	private class Pair
 	{
 		public int Position;
-		public String Line;
+		public MessageBody Message;
 		
-		public Pair(int p, String l)
+		public Pair(int p, MessageBody m)
 		{
 			Position = p;
-			Line = l;
+			Message = m;
 		}
 		
 
@@ -37,13 +39,10 @@ public class LaggyReceiver extends ReceiverAdapter {
 	}	
 	
     public void receive(Message msg) {
-        String line=msg.getSrc() + ": " + msg.getObject();
-        //System.out.println(line);
-        //synchronized(state) {
-        //    state.add(line);
-        //}
+    	MessageBody mb = (MessageBody)msg.getObject();
+    	
         int r = generator.nextInt(3);
-        backlog.add(new Pair(r, line));
+        backlog.add(new Pair(r, mb));
         
         RefreshBacklog();
          
@@ -58,7 +57,7 @@ public class LaggyReceiver extends ReceiverAdapter {
     	{
     		if (x.Position == 0)
     		{
-    			parent.newMessage(x.Line);
+    			parent.newMessage(x.Message);
     			done.add(x);
     		}
     		else
