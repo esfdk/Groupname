@@ -1,13 +1,9 @@
-<<<<<<< HEAD
-=======
 package ThirdManda;
 
->>>>>>> 70cde107b71f1c8472d62c142c23a1fb01010b96
 import java.text.DateFormat;
 import java.util.Date;
 import java.util.Timer;
 import java.util.TimerTask;
-
 import org.jgroups.Address;
 import org.jgroups.JChannel;
 import org.jgroups.Message;
@@ -55,12 +51,6 @@ public class ClockSynchonizer extends ReceiverAdapter {
 	    }
     }
     
-    
-<<<<<<< HEAD
-    // 
-=======
-    
->>>>>>> 70cde107b71f1c8472d62c142c23a1fb01010b96
     public void receive(Message msg) {
     	MessageBody mb = (MessageBody)msg.getObject();
     	if ((mb.Header.equals("Master Request")) && (!mb.Sender.equals(channel.getAddressAsString())) && MasterMode)
@@ -84,31 +74,33 @@ public class ClockSynchonizer extends ReceiverAdapter {
     	} 	
     	if ((mb.Header.equals("Time Request")) && MasterMode)
     	{
-    		// If we get a time request, then answer with out local time.
+    		// If we get a time request, then answer with our local time.
     		//System.out.println("Time Request");
     		String s = String.valueOf(clock.getTime().getTime());
     		send("Time Reply", s, msg.getSrc());
     		
     	}
     	if (mb.Header.equals("Time Reply"))
-    	{    		
+    	{
     		//System.out.println("Time Reply");
     		
-    		// TODO: Implement this.
-    		int dif = 0;
+    		int dif = (int) (Long.parseLong(mb.Message) - clock.getTime().getTime());
     		
     		synchronized(clock)
     		{
     			clock.Adjust(dif);
     		}
-    	}    	
+    	}
     	
     	
     }
     
     public void UpdateClock()
     {
-		// TODO: Implement this.    	
+    	if(!MasterMode)
+    	{
+        	send("Time Request", "", Master);
+    	}
     }    
     
     Timer timer;
