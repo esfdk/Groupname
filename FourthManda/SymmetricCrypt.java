@@ -33,8 +33,9 @@ public class SymmetricCrypt {
 		// Create outputstream
 		FileOutputStream fos = new FileOutputStream("out.txt");
 		BufferedOutputStream bos = new BufferedOutputStream(fos);
-		CipherOutputStream cos = new CipherOutputStream(bos, desCipher);
-		ObjectOutputStream oos = new ObjectOutputStream(cos);
+		//CipherOutputStream cos = new CipherOutputStream(bos, desCipher);
+		//ObjectOutputStream oos = new ObjectOutputStream(cos);
+		ObjectOutputStream oos = new ObjectOutputStream(bos);
 		
 		// Write
 		oos.writeUTF(plaintext);
@@ -47,8 +48,9 @@ public class SymmetricCrypt {
 		// Create stream
 		FileInputStream fis = new FileInputStream("out.txt");
 		BufferedInputStream bis = new BufferedInputStream(fis);
-		CipherInputStream cis = new CipherInputStream(bis, desCipher);
-		ObjectInputStream ois = new ObjectInputStream(cis);
+		//CipherInputStream cis = new CipherInputStream(bis, desCipher);
+		//ObjectInputStream ois = new ObjectInputStream(cis);
+		ObjectInputStream ois = new ObjectInputStream(bis);
 		
 		// Read 
 		String plaintext2 = ois.readUTF();
