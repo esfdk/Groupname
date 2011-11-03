@@ -1,0 +1,21 @@
+19: hardcoded password
+20: hardcoded messsage
+
+24: password converted to byte array
+25: creates the DESkey
+26: gets a factory for creating DES keys
+27: creates the key used to init the cipher
+
+30: creates the cipher
+31: inits the cipher in encryption mode
+
+34-37: creates the output stream to write to the out.txt
+40-42: writes the encrypted plaintext to out.txt
+
+45: inits the cipher in decryption mode
+
+48-51:
+
+54-55:
+
+58-60:
