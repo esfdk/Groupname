@@ -13,15 +13,18 @@ public class Alice {
 	String bobServerAddress = "127.0.0.1";
 	int bobServerPort = 1338;
 	
-	String message;
+	String message = "Message 1";
 	
 	public Alice() {
 		// Connect to Sara
-		connectToServer(saraServerAddress, saraServerPort);
+		System.out.println("Alice: connecting to Sara");
+		connect(saraServerAddress, saraServerPort);
 		
 		// Send message to Sara
+		System.out.println("Alice: sending message to Sara:");
+		System.out.println("Alice: " + message);
 		try {
-			message = client.sendMessage("Message 1");
+			message = client.sendMessage(message);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -30,12 +33,17 @@ public class Alice {
 		System.out.println("ALICE: Reply from Sara:");
 		System.out.println("ALICE: " + message);
 		
+		message = incrementMessage(message);
+		
 		// Connect to Bob
-		connectToServer(bobServerAddress, bobServerPort);
+		System.out.println("Alice: Connecting to Bob");
+		connect(bobServerAddress, bobServerPort);
 		
 		// Send message to Bob
+		System.out.println("Alice: sending message to Bob:");
+		System.out.println("Alice: " + message);
 		try {
-			message = client.sendMessage("Message 3");
+			message = client.sendMessage(message);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -44,24 +52,36 @@ public class Alice {
 		System.out.println("ALICE: Reply from Bob:");
 		System.out.println("ALICE: " + message);
 		
+		message = incrementMessage(message);
+		
 		// Connect to Bob
-		connectToServer(bobServerAddress, bobServerPort);
+		System.out.println("Connecting to Bob");
+		connect(bobServerAddress, bobServerPort);
 		
 		// Send message to Bob
+		System.out.println("Alice: sending message to Bob:");
+		System.out.println("Alice: " + message);
 		try {
-			client.sendMessage("Message 5");
+			client.sendMessage(message);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}
 	
-	public void connectToServer(String serverAddress, int serverPort) {
+	public void connect(String serverAddress, int serverPort) {
 		try {
 			client = new TCPClient();
 			client.initialize(serverAddress, serverPort);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+	}
+	
+	public String incrementMessage(String m) {
+		String[] strings = m.split(" ");
+		int number = Integer.parseInt(strings[1]);
+		number++;
+		return strings[0] + " " + number;
 	}
 	
 	public static void main(String[] args) {

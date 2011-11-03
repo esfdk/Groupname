@@ -15,7 +15,7 @@ public class TCPServer {
 	 * @param serverPort The port on the server.
 	 * @throws IOException
 	 */
-	public void startServer(int serverPort) throws IOException{
+	public TCPServer(int serverPort) throws IOException{
 		ServerSocket serverSocket = new ServerSocket(serverPort);
 		System.out.println("Server: ServerSocket created on port " + serverPort);
 		
@@ -62,6 +62,9 @@ class ServerThread extends Thread {
 			dos = new DataOutputStream(os);
 			System.out.println("Server: DataOutputStream created.");
 			
+			System.out.println("Server: Altering message...");
+			message = incrementMessage(message);
+			
 			System.out.println("Server: Replying to client with new message: ");
 			System.out.println("Server: " + message);
 			dos.writeUTF(message);
@@ -75,5 +78,12 @@ class ServerThread extends Thread {
 		catch (IOException e) {
 			e.printStackTrace();
 		}
+	}
+	
+	public String incrementMessage(String m) {
+		String[] strings = m.split(" ");
+		int number = Integer.parseInt(strings[1]);
+		number++;
+		return strings[0] + " " + number;
 	}
 }
