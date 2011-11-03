@@ -14,8 +14,8 @@
 
 45: inits the cipher in decryption mode
 
-48-51:
+48-51: creates the stream used to read from out.txt
 
-54-55:
+54-55: reads from the stream
 
-58-60:
+58-60: compares the original text to the read text.
