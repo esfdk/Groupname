@@ -74,11 +74,4 @@ public class Encryption {
 		
 		return s;
 	}
-	
-	public static void main(String[] args){
-		String s = "haha";
-		String s1 = encrypt(s);
-		String s2 = decrypt(s1);
-		System.out.println(s2);
-	}
 }
